@@ -1,40 +1,11 @@
-import React, {useRef, useState, useEffect} from 'react';
-import io from 'socket.io-client'; 
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
 
-const socket = io('http://localhost:4000');
+import router from './plugins/routing';
 
 const App = () => {
-  const [msg, setMsg] = useState<string>('');
-
-  const getMessage = () => {
-    socket.emit('send_message', msg);
-    setMsg('');
-  }
-
-  useEffect(() => {
-    const receiveMessage = (message: string) => {
-      console.log(message);
-    }
-    socket.on('receive_message', receiveMessage);
-
-    return () => {
-      socket.off('receive_message', receiveMessage);
-    }
-  }, [])
-
-  return (
-    <div className="App">
-      <h1>Hello</h1>
-     
-        <input type="text" 
-          value={msg}
-          onChange={
-            (e:{target:{value:string}})=>setMsg(e.target.value)
-          }
-        />
-        <button onClick={getMessage}>Send</button>
-
-    </div>
+  return(
+    <RouterProvider router={router}></RouterProvider>
   );
 }
 
