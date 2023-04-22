@@ -1,0 +1,47 @@
+.layout {
+    &__stream{
+        &-content {
+            &-main {
+                box-sizing: border-box;
+            }
+
+            &-side {
+                border-radius: 5px;
+                padding: .5rem 1rem;
+                display: flex;
+                flex-flow: column;
+                box-sizing: border-box;
+                background-color: #2b3035;
+            }
+        }
+
+        &-side {
+            &-title {
+                padding: 0.6rem 0;
+                box-sizing: border-box;
+                border-bottom: 1px solid #b7c7d6;
+            }
+
+            &-main {
+                flex: 1;
+                max-height: calc(100vh - 180px);
+            }
+
+            &-actions {
+                padding: 0.6rem 1rem;
+                box-sizing: border-box;
+            }
+        }
+
+
+    }
+}
+
+.stream {
+    &__side-title-text {
+        color: #fff;
+        text-align: center;
+        font-size: 1.8em;
+        font-weight: 600;
+    }
+}
