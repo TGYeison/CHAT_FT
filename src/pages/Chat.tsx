@@ -1,42 +1,65 @@
 import { useState, useEffect} from 'react';
 import io from 'socket.io-client'; 
 
+import StreamLayout from '../components/layouts/stream/stream';
+import InputMessage from '../components/molecule/input_message/input_message';
+
+import Chat from '../components/molecule/list/chat';
+import { msg } from '../types/chat';
+
 const socket = io('http://localhost:4000');
 
 
 const ChatPage = () => {
-    const [msg, setMsg] = useState<string>('');
-    const [messages, setMessages] = useState<{}[]>([]);
+    const [messages, setMessages] = useState<msg[]>([]);
   
-    const getMessage = () => {
-      socket.emit('send_message', msg);
-      setMsg('');
+    const getMessage = (msg: string) => {
+      const message = {
+        msg: msg,
+        from: 'yo'
+      };
+
+      socket.emit('send_message', message);
+      setMessages([...messages, message]);
+    }
+
+    const receiveMessage = (message: msg) => {
+      setMessages([...messages, message]);
+    }
+
+    const loadMessages = (msgs: msg[]) => {
+      setMessages([...messages, ...msgs]);
     }
   
     useEffect(() => {
-      const receiveMessage = (message: string) => {
-        console.log(message);
-      }
+    
+      socket.on('load_old_messages', loadMessages); 
+      
       socket.on('receive_message', receiveMessage);
   
       return () => {
         socket.off('receive_message', receiveMessage);
+        socket.off('load_old_messages', loadMessages); 
       }
-    }, [])
+    }, [messages])
+
+    useEffect
   
     return (
-      <div className="App">
-        <h1>Hello</h1>
-       
-          <input type="text" 
-            value={msg}
-            onChange={
-              (e:{target:{value:string}})=>setMsg(e.target.value)
-            }
+      <StreamLayout
+        title="Chat"
+        sideMain={
+          <Chat
+            items={messages}
           />
-          <button onClick={getMessage}>Send</button>
-  
-      </div>
+        }
+        actions={
+          <InputMessage 
+            placeholder='write ...'
+            callback={getMessage}
+          />
+        }
+      />
     );
 }
 

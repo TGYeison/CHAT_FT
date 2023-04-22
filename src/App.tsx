@@ -3,9 +3,13 @@ import { RouterProvider } from 'react-router-dom';
 
 import router from './plugins/routing';
 
+import {ContainerScreen} from './components/atomic/container/container';
+
 const App = () => {
   return(
-    <RouterProvider router={router}></RouterProvider>
+    <ContainerScreen>
+      <RouterProvider router={router}></RouterProvider>
+    </ContainerScreen>
   );
 }
 
