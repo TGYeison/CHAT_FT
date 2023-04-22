@@ -15,4 +15,12 @@
         flex-flow: wrap;
         display: flex;
     }
+
+    &__panel {
+        margin: auto;
+        height: 100%;
+        min-width: 320px;
+        max-height: 560px;
+        background-color: #2b3035;
+    }
 }
