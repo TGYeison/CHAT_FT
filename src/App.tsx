@@ -5,11 +5,15 @@ import router from './plugins/routing';
 
 import {ContainerScreen} from './components/atomic/container/container';
 
+import { AuthProvider } from './hook/useAuth/context';
+
 const App = () => {
   return(
-    <ContainerScreen>
-      <RouterProvider router={router}></RouterProvider>
-    </ContainerScreen>
+    <AuthProvider>
+      <ContainerScreen>
+        <RouterProvider router={router}></RouterProvider>
+      </ContainerScreen>
+    </AuthProvider>
   );
 }
 

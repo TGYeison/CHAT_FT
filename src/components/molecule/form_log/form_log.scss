@@ -1,0 +1,16 @@
+.form__log-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cntrl__field {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+}

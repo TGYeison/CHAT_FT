@@ -2,46 +2,26 @@ import {
     createBrowserRouter
 } from 'react-router-dom';
 
-/**
- * Pages
- */
+//validation
+import RequireAuth from './validate';
+
+// Pages
 import ChatPage from '../pages/Chat';
-import HomePage from '../pages/Home';
-import LoginPage from '../pages/Login';
-import LogUpPage from '../pages/Logup';
 import AuthPage from '../pages/Auth';
 
-interface RouteObject {
-    caseSensitive?: boolean;
-    children?: RouteObject[];
-    element?: React.ReactNode;
-    index?: boolean;
-    path?: string;
-}
 
 
 const routes: any = [
     {
+        root: true,
         path: '/',
-        element: <HomePage/>
-    },
-    {
-        path: '/auth',
         element: <AuthPage/>,
-        children: [
-            {
-                index: true,
-                element: <LoginPage/>
-            },
-            {
-                path: '/auth/logup',
-                element: <LogUpPage/>
-            },
-        ]
     }, 
     {
         path: '/chat',
-        element: <ChatPage/>
+        element: <RequireAuth>
+            <ChatPage/>
+        </RequireAuth>
     }
 ]
 
